@@ -1,0 +1,107 @@
+if game.PlaceId == 8750997647 then
+	local OrionLib = loadstring(game:HttpGet(('https://raw.githubusercontent.com/shlexware/Orion/main/source')))()
+	local Window = OrionLib:MakeWindow({Name = "Katakuri Hub - [X3!🍀+X1.5!🥚] ⚡ Tapping Legends X", HidePremium = false, IntroEnabled = false,IntroText = "Katakuri Hub",SaveConfig = true, ConfigFolder = "Tutorial Config"})
+	
+	-- Values
+	getgenv().autoTap = true 
+	getgenv().autoRebirth = true
+	getgenv().autoHatch = true
+	getgenv().selectEgg = "Basic Egg"
+
+
+	-- Functions
+	function autoTap()
+		while getgenv().autoTap == true do
+			game:GetService("ReplicatedStorage").Remotes.Tap:FireServer()
+			wait(.00000000000000000000000000000001)
+		 end
+		end
+	
+	function autoRebirth()
+		while getgenv().autoRebirth == true do
+			game:GetService("ReplicatedStorage").Remotes.Rebirth:FireServer(1)
+			wait(.00000000000000000000000000000001)
+		 end
+		end
+	
+		function autoHatch()
+			while getgenv().autohatch == true do
+     game:GetService("ReplicatedStorage").Remotes.BuyEgg:InvokeServer(getgenv().selectEgg,1)
+     wait(.00000000000000000000000000000001)
+			end
+		end
+	function equipBest()
+game:GetService("ReplicatedStorage").Remotes.UnequipAll:InvokeServer()
+game:GetService("ReplicatedStorage").Remotes.EquipBest:InvokeServer()
+	end
+	-- Tabs
+	local FarmTab = Window:MakeTab({
+		Name = "Autofarm",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	local EggsTab = Window:MakeTab({
+		Name = "Eggs",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	
+	local MiscTab = Window:MakeTab({
+		Name = "Misc",
+		Icon = "rbxassetid://4483345998",
+		PremiumOnly = false
+	})
+	-- Toggles
+	FarmTab:AddToggle({
+		Name = "Auto Tap",
+		Default = false,
+		Callback = function(Value)
+			getgenv().autoTap = Value
+			autoTap()
+			
+		end    
+	})
+	
+	FarmTab:AddToggle({
+		Name = "Auto Rebirth",
+		Default = false,
+		Callback = function(Value)
+			getgenv().autoRebirth = Value
+			autoRebirth()
+			
+		end    
+	})
+	EggsTab:AddToggle({
+		Name = "Auto Hatch",
+		Default = false,
+		Callback = function(Value)
+		getgenv().autohatch = Value
+		autoHatch()
+	end    
+	})
+	
+	MiscTab:AddButton({
+		Name = "Equip Best Pet",
+		Callback = function()
+				  equipBest()
+		  end    
+	})
+
+
+-- Dropdowns
+
+EggsTab:AddDropdown({
+	Name = "Select Egg",
+	Default = "Basic Egg",
+	Options = {"Basic Egg", "Rare Egg"},
+	Callback = function(Value)
+	 getgenv().selectEgg = Value
+	  print(getgenv().selectEgg )
+	end    
+})
+
+	
+	
+	
+	end
+	OrionLib:Init()
